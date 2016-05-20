@@ -1,9 +1,25 @@
 module Fibonacci
-  def recursive_fib(i, number, prev1, prev2)
-    if i < number
-      recursive_fib(i+1, number, prev2, prev1 + prev2)
-    else
-      return prev1 + prev2
-    end
+  def Fibonacci.recursive_fib(n)
+    return n if n < 2
+    return recursive_fib(n - 1) + recursive_fib(n - 2)
   end
+
+  def Fibonacci.iterative_fib(n)
+    a = 0
+    b = 1
+    n.times do
+      temp = a
+      a = b
+      b = b + temp 
+    end
+    return a
+  end
+end
+
+
+require 'benchmark'
+n = 38
+Benchmark.bm do |x|
+  x.report("recursive_fib") { Fibonacci.recursive_fib(n) }
+  x.report("iterative_fib") { Fibonacci.iterative_fib(n) }
 end
