@@ -7,31 +7,30 @@ class LinkedListNode
   end
 end
 
-
 class Stack
-    attr_reader :data
-    
-    def initialize
-        @data = nil
-    end
+  attr_reader :data
 
-    # Push a value onto the stack
-    def push(value)
-      @data = LinkedListNode.new(value, data)
-    end
+  def initialize
+    @data = nil
+  end
 
-    # Pop an item off the stack.  
-    # Remove the last item that was pushed onto the
-    # stack and return the value to the user
-    def pop
-      if @data
-        top = @data.value
-        @data = @data.next_node
-        return top
-      else
-        return 'nil'
-      end
+  # Push a value onto the stack
+  def push(value)
+    @data = LinkedListNode.new(value, data)
+  end
+
+  # Pop an item off the stack.  
+  # Remove the last item that was pushed onto the
+  # stack and return the value to the user
+  def pop
+    if @data
+      top = @data.value
+      @data = @data.next_node
+      return top
+    else
+      return 'nil'
     end
+  end
 end
 
 

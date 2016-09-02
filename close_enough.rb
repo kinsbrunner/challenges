@@ -40,12 +40,13 @@ require 'minitest/autorun'
 # Run this file with ruby close_enough.rb
 #
 # Feel free to contact us for any help
+
 class CloseEnough
   def self.winner?(player_numbers, result_numbers)
     result_numbers.each_index do |i|
       return true if generate_combinations(result_numbers, i+1).include?(player_numbers)
     end
-    return false
+    false
   end
 
   def self.generate_combinations(ns, n)
@@ -57,23 +58,28 @@ class CloseEnough
     combinations = alternatives[0].product(*alternatives[1..-1])
 
     combinations.delete_if do |comb|
-#     Remove winning number
-      true if comb.eql?(ns)
-
-#     Compare element vs. element      
-      diffs = comb.zip(ns).collect{ |x,y| x!=y ? 1 : 0 }
-      sum = 0
-      
-#     Count number of differences      
-      diffs.each { |a| sum+=a }
-      sum == n ? false : true
-    end
-
-    return combinations
+      comb.zip(ns).select{ |x, y| x != y }.length != n
+    end  
   end
- end
+  
+  def self.generate_combinations(ns, n)
+    #pre = ns.map{ |num| num != 0 ? num-1 : 9 }
+    pre = ns.map{ |n| (n - 1) % 10 }
+    #nex = ns.map{ |num| num != 9 ? num+1 : 0 }
+    nex = ns.map{ |n| (n + 1) % 10 }
+    
+    alternatives = pre.zip(ns, nex)
+    
+    puts pre.inspect
+    puts nex.inspect
+    
+  end
+end
 
+CloseEnough.generate_combinations([0,1,2], 1)
+CloseEnough.generate_combinations([7,8,9], 1)
 
+=begin
 class TestCloseEnough < Minitest::Test
   def test_3_one_digit_one_off
     assert_equal(
@@ -178,4 +184,5 @@ class TestCloseEnough < Minitest::Test
       assert_equal(is_winner, CloseEnough.winner?(player, result))
     end
   end
-end  
+end
+=end
