@@ -20,6 +20,6 @@ end
 require 'benchmark'
 n = 38
 Benchmark.bm do |x|
-  x.report("recursive_fib") { Fibonacci.recursive_fib(n) }
-  x.report("iterative_fib") { Fibonacci.iterative_fib(n) }
+  x.report("recursive_fib") { puts Fibonacci.recursive_fib(n) }
+  x.report("iterative_fib") { puts Fibonacci.iterative_fib(n) }
 end
